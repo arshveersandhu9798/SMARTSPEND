@@ -9,6 +9,9 @@
     'use strict';
 
     // --- Configuration & Constants ---
+    const USER_STORAGE_PREFIX = 'smartspend_user_' + (window.smartSpendUserId || 'guest') + '_';
+    const userStorageKey = (key) => USER_STORAGE_PREFIX + key;
+
     const STORAGE_KEYS = {
         TRANSACTIONS: 'smartspend_transactions',
         BUDGETS: 'smartspend_budgets',
@@ -157,9 +160,9 @@
 
     function saveToStorage() {
         try {
-            localStorage.setItem(STORAGE_KEYS.TRANSACTIONS, JSON.stringify(state.transactions));
-            localStorage.setItem(STORAGE_KEYS.BUDGETS, JSON.stringify(state.budgets));
-            localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(state.settings));
+            localStorage.setItem(userStorageKey(STORAGE_KEYS.TRANSACTIONS), JSON.stringify(state.transactions));
+            localStorage.setItem(userStorageKey(STORAGE_KEYS.BUDGETS), JSON.stringify(state.budgets));
+            localStorage.setItem(userStorageKey(STORAGE_KEYS.SETTINGS), JSON.stringify(state.settings));
         } catch (err) {
             console.error('Failed to save state to LocalStorage:', err);
             showToast('Failed to save data. LocalStorage quota may be exceeded.', 'error');
@@ -168,9 +171,9 @@
 
     function loadFromStorage() {
         try {
-            const storedTxs = localStorage.getItem(STORAGE_KEYS.TRANSACTIONS);
-            const storedBudgets = localStorage.getItem(STORAGE_KEYS.BUDGETS);
-            const storedSettings = localStorage.getItem(STORAGE_KEYS.SETTINGS);
+            const storedTxs = localStorage.getItem(userStorageKey(STORAGE_KEYS.TRANSACTIONS));
+            const storedBudgets = localStorage.getItem(userStorageKey(STORAGE_KEYS.BUDGETS));
+            const storedSettings = localStorage.getItem(userStorageKey(STORAGE_KEYS.SETTINGS));
 
             if (storedTxs) {
                 state.transactions = JSON.parse(storedTxs);

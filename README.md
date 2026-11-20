@@ -151,3 +151,18 @@ SmartSpend automatically stores and syncs all changes in your browser's `localSt
 | **Expense / Alert** | Coral Red | `#EF4444` |
 | **Warning** | Amber Yellow | `#F59E0B` |
 | **Income / Success** | Emerald Green | `#10B981` |
+
+
+## 🔐 Sign-up and Login (Supabase)
+
+This version includes `auth.html`, `auth.css`, `auth.js`, `app-auth.js`, and `supabase-config.js`. The dashboard checks for a valid Supabase session before loading. Local browser data is namespaced by the authenticated Supabase user ID, so accounts using the same browser profile do not share SmartSpend local data. This is browser-local storage, not cloud synchronization.
+
+### Supabase setup
+1. Create a project at https://supabase.com/.
+2. In **Project Settings → API**, copy the Project URL and the **anon/public** key. Never use the `service_role` key in browser code.
+3. Paste both values into `supabase-config.js`, replacing the two `YOUR_...` placeholders.
+4. In **Authentication → URL Configuration**, add your website URL to Site URL and add the deployed `auth.html` / `index.html` URLs to Redirect URLs. For local testing, add `http://localhost:8000/**`.
+5. In **Authentication → Providers → Email**, enable email/password sign-in. You can keep email confirmation enabled; users will need to confirm their email before logging in.
+6. Serve the folder through a local web server (for example `python3 -m http.server 8000`) and open `http://localhost:8000/auth.html`. Do not rely on opening the files directly with `file://`.
+
+**Important:** Authentication is handled by Supabase, but SmartSpend transaction/budget records still live in each user's browser LocalStorage. For secure cloud sync across devices, move financial records into Supabase database tables with Row Level Security policies that restrict every row to `auth.uid()`. Do not store sensitive financial data in a shared/public table.
