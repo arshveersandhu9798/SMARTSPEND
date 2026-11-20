@@ -1,4 +1,5 @@
-// 1) Replace these two values with your Supabase Project URL and anon/public key.
-// Supabase Dashboard -> Project Settings -> API. Never put a service_role key here.
-window.SUPABASE_URL = 'YOUR_SUPABASE_PROJECT_URL';
-window.SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_PUBLIC_KEY';
+// Supabase Configuration
+// Project ID: bhmcatydavooqicxjxbl
+window.SUPABASE_PROJECT_ID = 'bhmcatydavooqicxjxbl';
+window.SUPABASE_URL = 'https://bhmcatydavooqicxjxbl.supabase.co';
+window.SUPABASE_ANON_KEY = 'sb_publishable_Hr-EmG0x39MLyrQftHzCnA_TXRePDRIs';
